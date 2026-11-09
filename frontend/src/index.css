@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 98%;
+    --foreground: 222 40% 12%;
+    --sidebar: 220 22% 96.5%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 40% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 40% 12%;
+    --primary: 245 75% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 245 85% 96%;
+    --muted: 220 18% 94.5%;
+    --muted-foreground: 220 10% 42%;
+    --accent: 220 18% 93%;
+    --accent-foreground: 222 40% 14%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 60% 34%;
+    --warning: 35 90% 40%;
+    --border: 220 16% 90%;
+    --input: 220 16% 86%;
+    --ring: 245 75% 58%;
+    --highlight: 48 100% 55%;
+  }
+
+  .dark {
+    --background: 228 16% 8%;
+    --foreground: 220 20% 92%;
+    --sidebar: 228 16% 10%;
+    --card: 228 15% 12%;
+    --card-foreground: 220 20% 92%;
+    --popover: 228 15% 14%;
+    --popover-foreground: 220 20% 92%;
+    --primary: 245 85% 72%;
+    --primary-foreground: 240 40% 10%;
+    --primary-soft: 245 35% 20%;
+    --muted: 228 12% 17%;
+    --muted-foreground: 220 10% 64%;
+    --accent: 228 12% 20%;
+    --accent-foreground: 220 20% 92%;
+    --destructive: 0 72% 62%;
+    --destructive-foreground: 0 0% 8%;
+    --success: 152 55% 55%;
+    --warning: 38 90% 60%;
+    --border: 228 12% 20%;
+    --input: 228 12% 26%;
+    --ring: 245 85% 72%;
+    --highlight: 48 100% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  [role='menuitem']:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  .prose-chat {
+    @apply text-[15px] leading-7 text-foreground;
+  }
+  .prose-chat > * + * {
+    @apply mt-3;
+  }
+  .prose-chat h1,
+  .prose-chat h2,
+  .prose-chat h3 {
+    @apply mt-5 font-semibold tracking-tight;
+  }
+  .prose-chat h1 {
+    @apply text-lg;
+  }
+  .prose-chat h2 {
+    @apply text-base;
+  }
+  .prose-chat h3 {
+    @apply text-[15px];
+  }
+  .prose-chat ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+  .prose-chat ol {
+    @apply list-decimal space-y-1 pl-5;
+  }
+  .prose-chat blockquote {
+    @apply border-l-2 border-primary/40 pl-3 text-muted-foreground;
+  }
+  .prose-chat code {
+    @apply rounded bg-muted px-1 py-0.5 text-[13px];
+  }
+  .prose-chat pre {
+    @apply overflow-x-auto rounded-md bg-muted p-3;
+  }
+  .prose-chat pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-chat table {
+    @apply w-full border-collapse text-sm;
+  }
+  .prose-chat th,
+  .prose-chat td {
+    @apply border px-2 py-1 text-left;
+  }
+  .prose-chat strong {
+    @apply font-semibold;
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+}
+
+/* Citation highlight inside the PDF.js text layer. */
+.textLayer mark.nm-highlight {
+  background: hsl(var(--highlight) / 0.45);
+  color: transparent;
+  border-radius: 2px;
+  padding: 1px 0;
+}
