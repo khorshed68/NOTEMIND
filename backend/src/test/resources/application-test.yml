@@ -1,0 +1,17 @@
+spring:
+  ai:
+    model:
+      chat: none
+      embedding: none
+
+notemind:
+  jwt:
+    secret: test-only-secret-with-more-than-32-bytes-of-length
+  ocr:
+    enabled: false
+  rag:
+    similarity-threshold: 0.2
+  rate-limit:
+    ai-per-minute: 100000
+    uploads-per-hour: 100000
+    auth-per-minute: 100000
