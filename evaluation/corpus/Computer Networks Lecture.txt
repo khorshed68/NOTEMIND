@@ -1,0 +1,53 @@
+CSE 3205 Computer Networks
+Network Models
+
+The OSI reference model organizes network functions into seven layers: physical, data link, network, transport, session, presentation, and application. The TCP/IP model used on the Internet has four layers: link, internet, transport, and application.
+Each layer adds its own header to the data it receives from the layer above, a process called encapsulation. The unit of data is called a frame at the data link layer, a packet at the network layer, and a segment at the transport layer.
+Page 1
+=== PAGE ===
+CSE 3205 Computer Networks
+Data Link Layer
+
+The data link layer provides node-to-node delivery across a single link. Error detection commonly uses a cyclic redundancy check, in which the sender appends a remainder computed by polynomial division and the receiver recomputes it.
+Ethernet uses carrier sense multiple access with collision detection. A station listens before transmitting, and if a collision is detected it stops and waits a random backoff time. Modern switched networks are full duplex, so collisions no longer occur.
+A switch learns MAC addresses by reading the source address of incoming frames and storing the port in its forwarding table.
+Page 2
+=== PAGE ===
+CSE 3205 Computer Networks
+IP Addressing
+
+Internet Protocol version 4 uses 32-bit addresses, usually written in dotted decimal notation. Classless Inter-Domain Routing, or CIDR, writes a prefix length after the address, such as 192.168.1.0/24, which leaves eight bits for hosts.
+Because IPv4 addresses are scarce, Network Address Translation lets many devices in a private network share a single public address. The router rewrites source addresses and tracks connections in a translation table.
+IPv6 uses 128-bit addresses, which removes the shortage of addresses and simplifies the packet header.
+Page 3
+=== PAGE ===
+CSE 3205 Computer Networks
+Routing
+
+Routers forward packets using a forwarding table built by routing protocols. In a distance vector protocol such as RIP, each router shares its table with its neighbors and applies the Bellman-Ford algorithm. A known weakness is the count to infinity problem, which slows convergence after a failure.
+In a link state protocol such as OSPF, every router floods information about its links and then computes shortest paths with Dijkstra's algorithm over the full topology.
+Between autonomous systems the Internet uses the Border Gateway Protocol, a path vector protocol that makes decisions based on policy.
+Page 4
+=== PAGE ===
+CSE 3205 Computer Networks
+Transport Layer: UDP and TCP
+
+The transport layer provides process-to-process communication using port numbers. UDP is connectionless and offers no delivery guarantee, so it has very low overhead and suits streaming and DNS queries.
+TCP is connection-oriented and provides reliable, in-order delivery. A connection is established with a three-way handshake: the client sends SYN, the server replies with SYN-ACK, and the client answers with ACK. Sequence numbers and acknowledgements allow lost segments to be detected and retransmitted.
+Page 5
+=== PAGE ===
+CSE 3205 Computer Networks
+TCP Congestion Control
+
+TCP adjusts its sending rate with a congestion window. During slow start the window grows exponentially, doubling every round trip, until it reaches a threshold. Congestion avoidance then increases it by about one segment per round trip, which is called additive increase.
+When three duplicate acknowledgements arrive, TCP performs fast retransmit and halves the window, known as multiplicative decrease. A timeout is treated as a more severe signal and resets the window to one segment.
+Flow control is different: the receiver advertises a window so that the sender does not overflow the receiver's buffer.
+Page 6
+=== PAGE ===
+CSE 3205 Computer Networks
+Application Layer
+
+The Domain Name System translates human-readable names into IP addresses using a hierarchy of root, top-level domain, and authoritative name servers. Resolvers cache answers according to a time-to-live value.
+HTTP is a stateless request-response protocol. Cookies let servers keep state across requests. HTTP/2 multiplexes several streams over a single connection, and HTTP/3 runs over QUIC, which is built on UDP.
+DHCP automatically assigns an IP address and other configuration to hosts when they join a network.
+Page 7

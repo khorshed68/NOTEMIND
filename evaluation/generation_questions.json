@@ -1,0 +1,45 @@
+{
+  "keyTerms": {
+    "Q01": ["token"],
+    "Q02": ["thompson"],
+    "Q03": ["subset"],
+    "Q04": ["more than one", "multiple"],
+    "Q05": ["loop"],
+    "Q06": ["ll(1)", "parsing table"],
+    "Q07": ["handle"],
+    "Q08": ["smaller"],
+    "Q09": ["three operands"],
+    "Q10": ["graph coloring"],
+    "Q11": ["constant folding"],
+    "Q12": ["syn", "ack"],
+    "Q13": ["halve", "fast retransmit"],
+    "Q14": ["dijkstra"],
+    "Q15": ["distance vector"],
+    "Q16": ["network address translation"],
+    "Q17": ["source"],
+    "Q18": ["quic"],
+    "Q19": ["root"],
+    "Q20": ["cohesion", "coupling"],
+    "Q21": ["observer"],
+    "Q22": ["risk"],
+    "Q23": ["equivalence partitioning", "boundary value"],
+    "Q24": ["corrective"],
+    "Q25": ["performance"]
+  },
+  "nearTopic": [
+    {"id": "T01", "question": "What is the maximum frame size allowed by Ethernet in bytes?"},
+    {"id": "T02", "question": "How many operators does the C programming language define?"},
+    {"id": "T03", "question": "In what year was the Scrum framework first published?"},
+    {"id": "T04", "question": "What port number does HTTPS use by default?"}
+  ],
+  "bangla": [
+    {"id": "B01", "question": "টিসিপি থ্রি-ওয়ে হ্যান্ডশেক কীভাবে কাজ করে?", "document": "Computer Networks Lecture.pdf", "page": 5},
+    {"id": "B02", "question": "লেক্সিকাল অ্যানালাইজার কী তৈরি করে?", "document": "Compiler Design Notes.pdf", "page": 2},
+    {"id": "B03", "question": "অবজারভার ডিজাইন প্যাটার্ন কী?", "document": "Software Engineering Handout.pdf", "page": 4},
+    {"id": "B04", "question": "ডিএনএস কীভাবে নামকে আইপি ঠিকানায় রূপান্তর করে?", "document": "Computer Networks Lecture.pdf", "page": 7}
+  ],
+  "followUps": [
+    {"id": "F01", "first": "What is shift-reduce parsing?", "second": "What kind of conflict can happen in it?", "document": "Compiler Design Notes.pdf", "page": 6},
+    {"id": "F02", "first": "What does the Border Gateway Protocol do?", "second": "And how does OSPF differ from it?", "document": "Computer Networks Lecture.pdf", "page": 4}
+  ]
+}
