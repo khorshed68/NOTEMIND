@@ -1,0 +1,9 @@
+* text=auto
+
+# Shell scripts must keep LF so they run inside Linux containers and on CI.
+backend/mvnw text eol=lf
+*.sh text eol=lf
+*.cmd text eol=crlf
+
+*.pdf binary
+*.png binary
