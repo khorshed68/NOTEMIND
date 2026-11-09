@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: INFO
+    com.notemind: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

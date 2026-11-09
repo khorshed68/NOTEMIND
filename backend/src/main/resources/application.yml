@@ -1,0 +1,143 @@
+spring:
+  application:
+    name: notemind
+  profiles:
+    default: dev
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/notemind}
+    username: ${DB_USERNAME:notemind}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:15}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    placeholders:
+      embedding_dimension: ${NOTEMIND_EMBEDDING_DIMENSION:384}
+  servlet:
+    multipart:
+      max-file-size: ${NOTEMIND_MAX_UPLOAD_SIZE:20MB}
+      max-request-size: ${NOTEMIND_MAX_UPLOAD_SIZE:20MB}
+  mvc:
+    async:
+      request-timeout: 300000
+
+  # AI provider selection. Valid chat values: openai | anthropic | ollama | none.
+  # Valid embedding values: transformers (local, no key) | openai | ollama | none.
+  # Any OpenAI-compatible host (Groq, OpenRouter, Gemini, LM Studio...) works
+  # through the openai provider by setting OPENAI_BASE_URL.
+  ai:
+    model:
+      chat: ${NOTEMIND_CHAT_PROVIDER:none}
+      embedding: ${NOTEMIND_EMBEDDING_PROVIDER:transformers}
+      image: none
+      moderation: none
+      audio:
+        speech: none
+        transcription: none
+    retry:
+      max-attempts: 3
+    openai:
+      api-key: ${OPENAI_API_KEY:not-configured}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+      chat:
+        completions-path: ${OPENAI_COMPLETIONS_PATH:/v1/chat/completions}
+        options:
+          model: ${NOTEMIND_CHAT_MODEL:gpt-4o-mini}
+          temperature: ${NOTEMIND_CHAT_TEMPERATURE:0.1}
+      embedding:
+        embeddings-path: ${OPENAI_EMBEDDINGS_PATH:/v1/embeddings}
+        options:
+          model: ${NOTEMIND_EMBEDDING_MODEL:text-embedding-3-small}
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:not-configured}
+      chat:
+        options:
+          model: ${NOTEMIND_CHAT_MODEL:claude-sonnet-5-5}
+          max-tokens: 2048
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        options:
+          model: ${NOTEMIND_CHAT_MODEL:llama3.2}
+          temperature: ${NOTEMIND_CHAT_TEMPERATURE:0.1}
+          # Stops a small model from generating indefinitely on a difficult prompt.
+          num-predict: ${NOTEMIND_CHAT_MAX_TOKENS:700}
+      embedding:
+        options:
+          model: ${NOTEMIND_EMBEDDING_MODEL:nomic-embed-text}
+    embedding:
+      transformer:
+        cache:
+          directory: ${NOTEMIND_MODEL_CACHE:${user.home}/.notemind/model-cache}
+        tokenizer:
+          options:
+            truncation: "true"
+            maxLength: "256"
+            padding: "true"
+
+server:
+  port: ${PORT:8080}
+  # Honour X-Forwarded-* from the bundled nginx so rate limits see real client IPs.
+  forward-headers-strategy: native
+  error:
+    include-message: never
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+
+notemind:
+  jwt:
+    secret: ${JWT_SECRET:}
+    access-ttl: ${JWT_ACCESS_TTL:PT15M}
+    refresh-ttl: ${JWT_REFRESH_TTL:P14D}
+    cookie-secure: ${COOKIE_SECURE:false}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  storage:
+    root-dir: ${NOTEMIND_STORAGE_DIR:./data/uploads}
+  upload:
+    max-bytes: ${NOTEMIND_MAX_UPLOAD_BYTES:20971520}
+    max-pages: ${NOTEMIND_MAX_PAGES:1500}
+  processing:
+    threads: ${NOTEMIND_PROCESSING_THREADS:2}
+  rag:
+    embedding-dimension: ${NOTEMIND_EMBEDDING_DIMENSION:384}
+    embedding-batch-size: ${NOTEMIND_EMBEDDING_BATCH_SIZE:32}
+    chunk-size: ${NOTEMIND_CHUNK_SIZE:900}
+    chunk-overlap: ${NOTEMIND_CHUNK_OVERLAP:150}
+    top-k: ${NOTEMIND_RAG_TOP_K:5}
+    candidates: ${NOTEMIND_RAG_CANDIDATES:30}
+    similarity-threshold: ${NOTEMIND_RAG_SIMILARITY_THRESHOLD:0.30}
+    keyword-threshold-factor: ${NOTEMIND_RAG_KEYWORD_FACTOR:0.75}
+    broad-threshold-factor: ${NOTEMIND_RAG_BROAD_FACTOR:0.4}
+    broad-top-k: ${NOTEMIND_RAG_BROAD_TOP_K:8}
+    history-messages: ${NOTEMIND_RAG_HISTORY:6}
+  rate-limit:
+    ai-per-minute: ${NOTEMIND_RATE_AI_PER_MINUTE:20}
+    uploads-per-hour: ${NOTEMIND_RATE_UPLOADS_PER_HOUR:30}
+    auth-per-minute: ${NOTEMIND_RATE_AUTH_PER_MINUTE:10}
+  ocr:
+    enabled: ${NOTEMIND_OCR_ENABLED:true}
+    command: ${NOTEMIND_OCR_COMMAND:tesseract}
+    languages: ${NOTEMIND_OCR_LANGUAGES:eng+ben}
+    dpi: ${NOTEMIND_OCR_DPI:220}
+    min-page-chars: ${NOTEMIND_OCR_MIN_PAGE_CHARS:25}
+  admin:
+    email: ${NOTEMIND_ADMIN_EMAIL:}
+    password: ${NOTEMIND_ADMIN_PASSWORD:}
+    name: ${NOTEMIND_ADMIN_NAME:NoteMind Admin}
